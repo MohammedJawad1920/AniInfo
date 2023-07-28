@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0%;
+  margin: 0%;
+  box-sizing: border-box;
+}
+
+.links {
+  @apply transition-all ease-out bg-slate-900 text-white font-bold w-4/5 text-center py-1 rounded-full hover:scale-110;
+}
+
+@layer {
+  /* This targets the scrollbar track */
+  /* You can adjust the width, height, and color to your liking */
+  /* The scrollbar will only appear on hover */
+  .filterScroll::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+
+  /* This targets the scrollbar thumb (the draggable part of the scrollbar) */
+  /* You can adjust the background color and rounded corners */
+  .filterScroll::-webkit-scrollbar-thumb {
+    @apply bg-white rounded;
+  }
+}
