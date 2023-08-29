@@ -31,7 +31,7 @@ const Main = () => {
   const [topRankingAnimes, setTopRankingAnimes] = useState([]);
   const [mostPopularAnimes, setMostPopularAnimes] = useState([]);
   const [trendingAnimes, setTrendingAnimes] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
@@ -54,33 +54,31 @@ const Main = () => {
 
   const isBannerImage = windowWidth >= 768;
 
+  const fetchData = async () => {
+    try {
+      const requests = [
+        axios.post(url, { query: SPOTLIGHT_ANIMES_QUERY }),
+        axios.post(url, { query: POPULAR_ANIMES_QUERY, variables }),
+        axios.post(url, { query: TRENDING_ANIMES_QUERY, variables }),
+        axios.post(url, { query: TOP_RANKING_ANIMES_QUERY, variables }),
+        axios.post(url, { query: TOP_AIRING_ANIMES_QUERY, variables }),
+      ];
+
+      const responses = await Promise.all(requests);
+      const data = responses.map((response) => response.data.data);
+
+      setSpotlight(data[0]?.Page);
+      setMostPopularAnimes(data[1]?.Page);
+      setTrendingAnimes(data[2]?.Page);
+      setTopRankingAnimes(data[3]?.Page);
+      setTopAiringAnimes(data[4]?.Page);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(true);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const requests = [
-          axios.post(url, { query: SPOTLIGHT_ANIMES_QUERY }),
-          axios.post(url, { query: POPULAR_ANIMES_QUERY, variables }),
-          axios.post(url, { query: TRENDING_ANIMES_QUERY, variables }),
-          axios.post(url, { query: TOP_RANKING_ANIMES_QUERY, variables }),
-          axios.post(url, { query: TOP_AIRING_ANIMES_QUERY, variables }),
-        ];
-
-        const responses = await Promise.all(requests);
-        const data = responses.map((response) => response.data.data);
-
-        setSpotlight(data[0]?.Page);
-        setMostPopularAnimes(data[1]?.Page);
-        setTrendingAnimes(data[2]?.Page);
-        setTopRankingAnimes(data[3]?.Page);
-        setTopAiringAnimes(data[4]?.Page);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(true);
-      }
-    };
-
     fetchData();
   }, []);
 
