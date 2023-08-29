@@ -1,52 +1,63 @@
-"use client"
-
+"use client";
+import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
-import {ChevronDownIcon} from "@heroicons/react/24/solid"
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')  
-}
-
-export default function FilterDropDown({title, filterItems, setVariable}) {
-
-    const [isOpen, setIsOpen] = useState(false);
-    const [dropDownTitle, setDropDownTitle] = useState("");
-
-    const toggleDropdown = () => {
-     setIsOpen(!isOpen);
-    };
+export default function FilterDropDown({
+  title,
+  filterItems,
+  setVariable,
+  variable,
+  isOpen,
+  toggleDropdown,
+}) {
+  const [dropdownTitle, setDropdownTitle] = useState("");
   return (
     <div className="relative">
-        <h2>{title}</h2>
+      <h2>{title}</h2>
+      <div
+        onClick={toggleDropdown}
+        className="dropdown-btn"
+      >
         <div
-          onClick={toggleDropdown}
-          className="flex items-center justify-between gap-3 px-2 py-2 md:w-36 bg-slate-700 text-white text-sm rounded-md shadow-md focus:outline-none mt-2"
+          className={`${
+            variable ? "text-amber-300" : "text-white"
+          } text-xs md:text-sm`}
         >
-            <div>
-            {dropDownTitle ? dropDownTitle : "Any"}
-            </div>
-             <ChevronDownIcon className="w-4 h-4"/>
+          {dropdownTitle && variable ? dropdownTitle : "Any"}
         </div>
-        {isOpen && (
-        <div className="absolute  mt-2 py-2  max-h-36 overflow-auto bg-slate-700 rounded-md shadow-lg z-10 text-xs filterScroll">
-         {filterItems.map((item, index) => {
+        {variable ? (
+          <XMarkIcon
+            onClick={() => {
+              setVariable(undefined);
+            }}
+            className="w-4 h-4"
+          />
+        ) : (
+          <ChevronDownIcon className="w-4 h-4" />
+        )}
+      </div>
+      {isOpen && (
+        <div className="absolute right-0 mt-2 py-2 max-h-36 overflow-auto bg-prussianBlueAccent rounded-md shadow-lg z-10 text-xs customScroll">
+          {filterItems.map((item, index) => {
+            const editedTitle = item?.title
+              ? item.title.replace("_", " ")
+              : null;
             return (
-            <h3 
+              <h3
                 key={index}
                 className="block px-4 py-2 text-white hover:bg-slate-500 hover:text-white"
-                onClick={() =>{   
-                 setVariable(item.query ? item.query : item)
-                 setDropDownTitle(item.title ? item.title : item)
-                 setIsOpen(false)
-                }}    
-            >
-                 {item.title ? item.title : item}
-            </h3    >
-            )
-         })}
-            
-         </div>
-    )}
-  </div>
-  )
+                onClick={() => {
+                  setVariable(item.query ? item.query : item);
+                  setDropdownTitle(item.title ? editedTitle : item);
+                  toggleDropdown();
+                }}
+              >
+                {item.title ? editedTitle : item}
+              </h3>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
 }

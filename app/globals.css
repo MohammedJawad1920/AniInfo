@@ -8,21 +8,56 @@
   box-sizing: border-box;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.noscroll-bar::-webkit-scrollbar {
+  display: none;
+}
+
+main {
+  @apply relative pt-[3.1rem] md:pt-16 text-white min-h-screen;
+}
+
 .links {
-  @apply transition-all ease-out bg-slate-900 text-white font-bold w-4/5 text-center py-1 rounded-full hover:scale-110;
+  @apply relative text-white font-bold flex items-center;
+}
+
+.links a::after {
+  @apply content-[""] absolute -bottom-1 left-0 right-0 w-full h-0.5 bg-amber-400 scale-x-0 transition-all duration-500 hover:scale-x-100;
+}
+
+.mobile-links {
+  @apply transition-all ease-out bg-slate-900 text-white font-bold w-4/5 md:w-48 text-center py-1 rounded-full hover:scale-110;
+}
+
+.dot {
+  @apply w-1 h-1 rounded-full inline-block bg-slate-400 mx-1 my-0.5;
+}
+
+.dropdown-btn {
+  @apply flex items-center justify-between gap-3 px-3 py-2 text-xs md:text-base bg-prussianBlueAccent text-white rounded-md shadow-md focus:outline-none mt-2;
 }
 
 @layer {
-  /* This targets the scrollbar track */
-  /* You can adjust the width, height, and color to your liking */
-  /* The scrollbar will only appear on hover */
-  .filterScroll::-webkit-scrollbar {
-    @apply w-1.5;
+  .customScroll::-webkit-scrollbar {
+    @apply w-1.5 block;
+  }
+  .customScroll::-webkit-scrollbar-track {
+    @apply bg-slate-500 rounded;
   }
 
-  /* This targets the scrollbar thumb (the draggable part of the scrollbar) */
-  /* You can adjust the background color and rounded corners */
-  .filterScroll::-webkit-scrollbar-thumb {
+  .customScroll::-webkit-scrollbar-thumb {
     @apply bg-white rounded;
+  }
+
+  .animeCard {
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(150px, 1fr)
+    ); /* Create auto-fill columns with a minimum width of 200px */
+    gap: 5px; /* Set the gap between items */
   }
 }

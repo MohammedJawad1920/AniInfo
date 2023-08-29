@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const GENRES = [
   "Action",
   "Adventure",
@@ -5,7 +7,6 @@ export const GENRES = [
   "Drama",
   "Ecchi",
   "Fantasy",
-  "Hentai",
   "Horror",
   "Mahou Shoujo",
   "Mecha",
@@ -241,4 +242,71 @@ export const SEASONS = [
   },
 ];
 
+export const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+export const statusColors = [
+  "#FF9900",
+  "#87CEEB",
+  "#FF69B4",
+  "#00FF00",
+  "#9400D3",
+];
+
+export const strokeColors = [
+  "hsl(10,75%,50%)",
+  "hsl(20,75%,50%)",
+  "hsl(30,75%,50%)",
+  "hsl(40,75%,50%)",
+  "hsl(50,75%,50%)",
+  "hsl(60,75%,50%)",
+  "hsl(70,75%,50%)",
+  "hsl(80,75%,50%)",
+  "hsl(90,75%,50%)",
+  "hsl(100,75%,50%)",
+];
+
+export function capitalizeWords(str) {
+  if (!str) {
+    return "";
+  }
+
+  return str
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
+
 export const url = "https://graphql.anilist.co";
+
+export function formatTime(seconds) {
+  const days = Math.floor(seconds / 86400);
+  seconds %= 86400;
+  const hours = Math.floor(seconds / 3600);
+  seconds %= 3600;
+  const minutes = Math.floor(seconds / 60);
+
+  let formattedTime = "";
+  if (days > 0) {
+    formattedTime += `${days}d `;
+  }
+  if (hours > 0) {
+    formattedTime += `${hours}h `;
+  }
+  if (minutes > 0) {
+    formattedTime += `${minutes}m`;
+  }
+  return formattedTime.trim();
+}
