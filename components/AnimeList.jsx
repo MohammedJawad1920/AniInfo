@@ -106,17 +106,25 @@ const AnimeList = ({ animes, loading, page, isTopRankingPage }) => {
                       </div>
                     </div>
                     <div className="flex flex-wrap items-center gap-1">
-                      <div className="bg-green-500 px-1 py-0.5 text-xs rounded">
-                        {format}
-                      </div>
-                      <div className="dot" />
-                      {episodes && format !== "MOVIE" ? (
-                        <div className="bg-blue-800 my-auto px-1 py-0.5 text-xs rounded">
-                          {`EP ${episodes}`}
+                      {format && (
+                        <div className="bg-green-500 px-1 py-0.5 text-xs rounded">
+                          {format}
                         </div>
-                      ) : null}
-                      <div className="dot" />
-                      <div>{duration}m</div>
+                      )}
+                      {episodes && format !== "MOVIE" && (
+                        <>
+                          <div className="dot" />
+                          <div className="bg-blue-800 my-auto px-1 py-0.5 text-xs rounded">
+                            {`EP ${episodes}`}
+                          </div>
+                        </>
+                      )}
+                      {duration && (
+                        <>
+                          <div className="dot" />
+                          <div>{duration}m</div>
+                        </>
+                      )}
                     </div>
                     {(format === "TV" || format === "TV_SHORT") && (
                       <p className=" text-gray-300">

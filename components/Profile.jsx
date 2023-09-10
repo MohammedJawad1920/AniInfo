@@ -1,61 +1,62 @@
+import { useState } from "react";
+import { signOut } from "firebase/auth";
+import { UserIcon, ArrowRightIcon, HeartIcon } from "@heroicons/react/24/solid";
+import { auth } from "../config/firbaseConfig";
+import Link from "next/link";
 
-import { Fragment } from 'react'
-import Image from 'next/image'
-import { Menu, Transition } from '@headlessui/react'
-import { UserIcon, UserCircleIcon } from '@heroicons/react/24/solid'
+export default function Profile({ user }) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      // The user is now logged out.
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
-export default function Profile({user, LogoutLink}) {
   return (
-    <Menu as="div" className="relative inline-block text-left ">
-      <div>
-        <Menu.Button className="inline-flex  justify-center rounded-full text-sm font-semibold p-1 text-black bg-amber-400">
-          <UserIcon className=' w-5 h-5 md:w-7 md:h-7'/>
-        </Menu.Button>
-      </div>
-
-      <Transition
-        as={Fragment}
-        enter="transition ease-out duration-100"
-        enterFrom="transform opacity-0 scale-95"
-        enterTo="transform opacity-100 scale-100"
-        leave="transition ease-in duration-75"
-        leaveFrom="transform opacity-100 scale-100"
-        leaveTo="transform opacity-0 scale-95"
+    <div className="relative inline-block text-left">
+      <button
+        className="inline-flex justify-center rounded-full text-sm font-semibold p-1 text-black bg-amber-400"
+        onClick={toggleDropdown}
       >
-        <Menu.Items className="absolute right-0 z-10 mt-3 w-56 origin-top-right rounded-md bg-zinc-300 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <div className='flex flex-col items-center justify-center p-4'>
-                  {
-                    user?.picture 
-                    ? <Image 
-                        src={user?.picture}
-                        width={65}
-                        height={65}/>
-                    : <div className='w-16 h-16'>
-                        <UserCircleIcon />
-                      </div> 
-                  }
-                  <div>
-                    <h2 className='font-bold'>Welcome</h2>
-                    {user?.given_name?.[0]}
-                    {user?.family_name?.[0]}
-                 </div>
-                  <LogoutLink className='bg-amber-400 py-1 px-2 font-bold rounded' >Logout</LogoutLink>
+        <UserIcon className="w-5 md:w-6 " />
+      </button>
+
+      {isDropdownOpen && (
+        <div className="absolute right-0 z-10 mt-5 w-60 md:w-72 lg:w-80 origin-top-right text-sm rounded-md bg-prussianBlueDarkest shadow-lg ring-1 ring-black ring-opacity-5">
+          <div className="py-4 px-6 space-y-2 text-white">
+            <h3 className="text-amber-400">{user?.displayName}</h3>
+            <p>{user?.email}</p>
+            <Link
+              href={"/anime/watchlist"}
+              className="flex items-center bg-prussianBlueAccent p-1 text-xs rounded max-w-fit gap-1"
+            >
+              <p>Watch List</p>
+              <div>
+                <HeartIcon className="w-5 text-red-500" />
+              </div>
+            </Link>
+            <div className="flex justify-end ">
+              <div
+                className="flex gap-1 bg-amber-400 cursor-pointer py-1 px-2 font-bold text-xs rounded text-black"
+                onClick={handleLogout}
+              >
+                <p className="rounded ">Logout</p>
+                <div className="grid place-content-center">
+                  <ArrowRightIcon className="w-4 h-4" />
                 </div>
-               
-                
-              )}
-            </Menu.Item> 
+              </div>
+            </div>
           </div>
-        </Menu.Items>
-      </Transition>
-    </Menu>
-  )
+        </div>
+      )}
+    </div>
+  );
 }

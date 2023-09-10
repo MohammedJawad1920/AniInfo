@@ -7,7 +7,6 @@ import {
   MagnifyingGlassIcon,
   FunnelIcon,
   XMarkIcon,
-  ChevronRightIcon,
 } from "@heroicons/react/24/solid";
 import Profile from "./Profile";
 import LoginPage from "./LoginPage";
@@ -18,33 +17,27 @@ import { ANIMES_SEARCH_QUERY } from "../app/api/apiQuery/page";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../hooks/useAuth";
+import { useAuthPage } from "../context/authContext";
 
 const NavBar = () => {
   const router = useRouter();
   const { setSearch } = useSearchContext();
+  const { loginPage, setLoginPage, registerPage, setRegisterPage } =
+    useAuthPage();
 
   const [isNavBar, setIsNavBar] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
   const [searchQuery, setSearchQuery] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [auth, setAuth] = useState(false);
-  const [user, setUser] = useState(false);
-  const [loginPage, setLoginPage] = useState(false);
-  const [registerPage, setRegisterPage] = useState(false);
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
   const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
+
+  const user = useAuth();
 
   const handleNavBar = () => {
     setIsNavBar(!isNavBar);
   };
 
-  const handleSearch = () => {};
-  const handleLogin = () => {};
-  const handleRegister = () => {};
-  const handleSearchResult = () => {};
   const handleSearchBar = () => {
     setIsSearchBarOpen(!isSearchBarOpen);
   };
@@ -178,7 +171,7 @@ const NavBar = () => {
             />
           </div>
           <div>
-            {!auth ? (
+            {!user ? (
               <div className="hidden xs:flex text-sm md:text-[1.1rem] space-x-1">
                 <div
                   className=" py-1 px-2 font-bold rounded text-white cursor-pointer"
@@ -194,7 +187,10 @@ const NavBar = () => {
                 </div>
               </div>
             ) : (
-              <Profile />
+              <Profile
+                user={user}
+                Lo
+              />
             )}
           </div>
         </div>
@@ -202,31 +198,17 @@ const NavBar = () => {
         {/* Login page */}
         {loginPage && (
           <LoginPage
-            setUsername={setUsername}
-            setPassword={setPassword}
-            username={username}
-            password={password}
             setLoginPage={setLoginPage}
             setRegisterPage={setRegisterPage}
             XMarkIcon={XMarkIcon}
-            handleLogin={handleLogin}
           />
         )}
         {/* Register page */}
         {registerPage && (
           <RegisterPage
-            setEmail={setEmail}
-            setUsername={setUsername}
-            setPassword={setPassword}
-            setConfirmPassword={setConfirmPassword}
-            email={email}
-            username={username}
-            password={password}
-            confirmPassword={confirmPassword}
             setLoginPage={setLoginPage}
             setRegisterPage={setRegisterPage}
             XMarkIcon={XMarkIcon}
-            handleRegister={handleRegister}
           />
         )}
 
@@ -454,8 +436,12 @@ const NavBar = () => {
                         ) : null}
 
                         <div>{anime?.format}</div>
-                        <div className="dot" />
-                        <div>{anime?.duration}m</div>
+                        {anime?.duration && (
+                          <>
+                            <div className="dot" />
+                            <div>{anime?.duration}m</div>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>

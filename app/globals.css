@@ -61,3 +61,11 @@ main {
     gap: 5px; /* Set the gap between items */
   }
 }
+
+.listItems {
+  @apply flex text-black font-bold items-center gap-5 py-2 px-5;
+}
+
+.categoryItems {
+  @apply p-1 text-black text-xs lg:text-sm font-bold rounded;
+}

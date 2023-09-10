@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getAnimeById } from "../../axios/getAnimeData";
-import { PlusIcon } from "@heroicons/react/24/solid";
+
 import {
   MONTHS,
   statusColors,
@@ -10,6 +10,7 @@ import {
 } from "../../../constants/page";
 import ReactHtmlParser from "html-react-parser";
 import Link from "next/link";
+import AddToList from "../../../components/AddToList";
 
 const AnimeItemPage = async ({ params: { id } }) => {
   const anime = await getAnimeById(id);
@@ -32,8 +33,8 @@ const AnimeItemPage = async ({ params: { id } }) => {
         {/* image, overview and detail */}
         <div className="flex flex-col md:flex-row">
           <div className="space-y-5 pt-12 w-full ">
-            <div className="flex flex-row justify-start md:items-start gap-3  px-5">
-              <div className="min-w-[110px] max-w-[130px]  md:w-40">
+            <div className="flex flex-row justify-start md:items-start gap-3  px-3 md:px-5">
+              <div className=" max-w-[110px] md:min-w-[140px]">
                 <Image
                   src={anime?.coverImage?.extraLarge}
                   alt="Anime Image"
@@ -64,23 +65,26 @@ const AnimeItemPage = async ({ params: { id } }) => {
                     </>
                   )}
                 </div>
-                <button className="max-w-[180px] px-2 py-1  bg-gray-300 hover:bg-white text-black text-xs md:text-sm font-bold rounded-md">
-                  <PlusIcon className="w-4 inline" />{" "}
-                  <p className="inline">Add To List</p>
-                </button>
+                <AddToList anime={anime} />
+                {/* overview */}
+                <div className=" hidden md:block   pb-3">
+                  <div className="space-y-3 text-slate-300  max-h-[280px] mt-3 pr-3  overflow-auto text-justify  customScroll text-sm ">
+                    {parsedDescription}
+                  </div>
+                </div>
               </div>
             </div>
             {/* overview */}
-            <div className="   md:bg-transparent bg-prussianBlueMediumDark px-5 pb-3">
-              <h3 className="text-amber-400 font-extrabold pt-3 md:hidden">
+            <div className="md:hidden bg-prussianBlueMediumDark px-5 pb-3">
+              <h3 className="text-amber-400 font-extrabold pt-3 ">
                 Overview:{" "}
               </h3>
-              <div className="space-y-3 text-slate-300  max-h-[240px] mt-3 pr-3  overflow-auto text-justify  customScroll text-xs md:text-sm container">
+              <div className="space-y-3 text-slate-300  max-h-[240px] mt-3 pr-3  overflow-auto text-justify  customScroll text-xs">
                 {parsedDescription}
               </div>
             </div>
           </div>
-          <div className="p-5   space-y-3 text-xs bg-prussianBlueMediumDark md:text-sm  md:pt-16 md:px-5 md:bg-prussianBlueAccent md:min-w-[300px]">
+          <div className="p-5   space-y-3 text-xs bg-prussianBlueMediumDark md:text-sm  md:pt-16 md:px-5 md:bg-prussianBlueAccent md:max-w-[300px]">
             <p>
               <span className="font-bold">Title:</span>{" "}
               {anime?.title?.english || anime?.title?.romaji}

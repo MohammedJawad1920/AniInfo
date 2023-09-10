@@ -72,10 +72,10 @@ const Main = () => {
       setTrendingAnimes(data[2]?.Page);
       setTopRankingAnimes(data[3]?.Page);
       setTopAiringAnimes(data[4]?.Page);
-      setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
-      setLoading(true);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -125,7 +125,10 @@ const Main = () => {
           }}
         >
           {spotlight?.media?.map((anime, index) => {
-            const parsedDescription = ReactHtmlParser(anime?.description);
+            const parsedDescription =
+              anime?.description && typeof anime.description === "string"
+                ? ReactHtmlParser(anime.description)
+                : null;
             const remainingTimeInSeconds =
               anime?.nextAiringEpisode?.timeUntilAiring;
             const formattedTime = formatTime(remainingTimeInSeconds);
@@ -161,28 +164,34 @@ const Main = () => {
                               {anime?.title?.english || anime?.title?.romaji}
                             </h2>
                             <div className="flex gap-1 md:gap-3 ">
-                              <div className="flex gap-2 items-center">
-                                <div>
-                                  <PlayCircleIcon className="w-4 h-4" />
+                              {anime?.format && (
+                                <div className="flex gap-2 items-center">
+                                  <div>
+                                    <PlayCircleIcon className="w-4 h-4" />
+                                  </div>
+                                  <div>{anime?.format}</div>
                                 </div>
-                                <div>{anime?.format}</div>
-                              </div>
-                              <div className="flex gap-2 items-center">
-                                <div>
-                                  <ClockIcon className="w-4 h-4" />
+                              )}
+                              {anime?.duration && (
+                                <div className="flex gap-2 items-center">
+                                  <div>
+                                    <ClockIcon className="w-4 h-4" />
+                                  </div>
+                                  <div>{anime?.duration} m</div>
                                 </div>
-                                <div>{anime?.duration} m</div>
-                              </div>
-                              <div className="flex gap-2 items-center">
-                                <div>
-                                  <CalendarIcon className="w-4 h-4" />
+                              )}
+                              {anime?.startDate?.year && (
+                                <div className="flex gap-2 items-center">
+                                  <div>
+                                    <CalendarIcon className="w-4 h-4" />
+                                  </div>
+                                  <div>
+                                    {MONTHS[anime?.startDate.month - 1]}{" "}
+                                    {anime?.startDate?.day},{" "}
+                                    {anime?.startDate?.year}
+                                  </div>
                                 </div>
-                                <div>
-                                  {MONTHS[anime?.startDate.month - 1]}{" "}
-                                  {anime?.startDate?.day},{" "}
-                                  {anime?.startDate?.year}
-                                </div>
-                              </div>
+                              )}
                             </div>
                             <p>
                               Episode {anime?.nextAiringEpisode?.episode} airing

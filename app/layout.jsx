@@ -1,5 +1,7 @@
 import NavBar from "../components/NavBar";
+import { AuthPageProvider } from "../context/authContext";
 import { SearchProvider } from "../context/searchContext";
+import { WatchlistProvider } from "../context/watchListContext";
 import "./globals.css";
 import { Nunito_Sans } from "next/font/google";
 
@@ -16,10 +18,12 @@ export default function RootLayout({ children }) {
       <body
         className={`${nunNunito_Sans.className} bg-prussianBlueDeep tracking-wide min-h-screen`}
       >
-        <SearchProvider>
-          <NavBar />
-          {children}
-        </SearchProvider>
+        <AuthPageProvider>
+          <SearchProvider>
+            <NavBar />
+            <WatchlistProvider>{children}</WatchlistProvider>
+          </SearchProvider>
+        </AuthPageProvider>
       </body>
     </html>
   );

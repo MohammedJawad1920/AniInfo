@@ -395,7 +395,7 @@ query ($id: Int) {
 const SPOTLIGHT_ANIMES_QUERY = `
 query {
   Page(page: 1, perPage:8,) {
-    media(isAdult: false, sort: [POPULARITY_DESC], status: RELEASING, type: ANIME ) {
+    media(isAdult: false, sort: [FAVOURITES_DESC], status: RELEASING, type: ANIME ) {
       id
       title {
         romaji
