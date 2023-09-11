@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getAnimeById } from "../../axios/getAnimeData";
+import { getAnimeById } from "../../../axios/getAnimeData";
 
 import {
   MONTHS,
@@ -7,7 +7,7 @@ import {
   strokeColors,
   capitalizeWords,
   formatTime,
-} from "../../../constants/page";
+} from "../../../constants/randomConstants";
 import ReactHtmlParser from "html-react-parser";
 import Link from "next/link";
 import AddToList from "../../../components/AddToList";

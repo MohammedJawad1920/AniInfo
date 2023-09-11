@@ -1,8 +1,6 @@
 "use client";
-import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { BROWSE_ANIMES_QUERY } from "../api/apiQuery/page";
-import { url } from "../../constants/page";
+import { BROWSE_ANIMES_QUERY } from "../../constants/apiQuery";
 import {
   GENRES,
   YEARS,
@@ -12,14 +10,13 @@ import {
   SORT,
   STATUS,
   SEASONS,
-  MONTHS,
-} from "../../constants/page";
+} from "../../constants/randomConstants";
 import FilterDropDown from "../../components/FilterDropDown";
 import SecondFilterDropDown from "../../components/SecondFilterDropDown";
 import Pagination from "../../components/Pagination";
 import AnimeList from "../../components/AnimeList";
 import { useSearchContext } from "../../context/searchContext";
-import { getAnimeByFilter } from "../axios/getAnimeData";
+import { getAnimeByFilter } from "../../axios/getAnimeData";
 
 const Page = () => {
   const query = BROWSE_ANIMES_QUERY;

@@ -2,7 +2,7 @@
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useState, useEffect } from "react";
-import { MONTHS, formatTime, url } from "../constants/page";
+import { MONTHS, formatTime, url } from "../constants/randomConstants";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -17,7 +17,7 @@ import {
   TOP_RANKING_ANIMES_QUERY,
   TRENDING_ANIMES_QUERY,
   SPOTLIGHT_ANIMES_QUERY,
-} from "./api/apiQuery/page";
+} from "../constants/apiQuery";
 import ReactHtmlParser from "html-react-parser";
 import axios from "axios";
 import Image from "next/image";
@@ -156,7 +156,7 @@ const Main = () => {
                             backgroundPosition: "center",
                           }}
                         >
-                          <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-transparent opacity-90" />
+                          <div className="absolute inset-0 bg-gradient-to-r from-black  to-transparent opacity-90" />
                           <div className="absolute h-full  flex flex-col justify-end w-[600px] text-start space-y-1 lg:space-y-2 px-20 pb-10 ">
                             <p className="text-amber-400 ">
                               #{index + 1} spotlight

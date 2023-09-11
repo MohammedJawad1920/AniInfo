@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
-import { TRENDING_ANIMES_QUERY } from "../../api/apiQuery/page";
-import { getAnimeBySort } from "../../axios/getAnimeData";
+import { TRENDING_ANIMES_QUERY } from "../../../constants/apiQuery";
+import { getAnimeBySort } from "../../../axios/getAnimeData";
 import { useState } from "react";
 import AnimeList from "../../../components/AnimeList";
 import Pagination from "../../../components/Pagination";

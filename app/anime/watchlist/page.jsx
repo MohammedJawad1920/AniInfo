@@ -4,7 +4,6 @@ import { useWatchlist } from "../../../context/watchListContext";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useAuth } from "../../../hooks/useAuth";
 import { useAuthPage } from "../../../context/authContext";
 
 const WatchlistPage = () => {

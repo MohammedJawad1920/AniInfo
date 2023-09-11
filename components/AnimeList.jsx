@@ -2,7 +2,7 @@ import Link from "next/link";
 import CardLoading from "./CardLoading";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
-import { MONTHS, capitalizeWords } from "../constants/page";
+import { MONTHS, capitalizeWords } from "../constants/randomConstants";
 import Image from "next/image";
 
 const AnimeList = ({ animes, loading, page, isTopRankingPage }) => {

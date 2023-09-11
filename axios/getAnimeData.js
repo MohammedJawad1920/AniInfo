@@ -1,6 +1,6 @@
 import axios from "axios";
-import { url } from "../../constants/page";
-import { ANIME_QUERY_BY_ID } from "../api/apiQuery/page";
+import { url } from "../constants/randomConstants";
+import { ANIME_QUERY_BY_ID } from "../constants/apiQuery";
 
 export async function getAnimeById(id) {
   try {
