@@ -31,7 +31,7 @@ const Main = () => {
   const [topRankingAnimes, setTopRankingAnimes] = useState([]);
   const [mostPopularAnimes, setMostPopularAnimes] = useState([]);
   const [trendingAnimes, setTrendingAnimes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
@@ -49,12 +49,13 @@ const Main = () => {
 
   const variables = {
     page: 1,
-    perPage: 10,
+    perPage: 15,
   };
 
   const isBannerImage = windowWidth >= 768;
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const requests = [
         axios.post(url, { query: SPOTLIGHT_ANIMES_QUERY }),
@@ -311,7 +312,7 @@ const Main = () => {
                 >
                   {/* {ranking} */}
 
-                  <div className="grid place-content-center tex-lg md:text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-400 w-16 md:w-20 lg:w-28">
+                  <div className="grid place-content-center tex-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-400 w-16 md:w-20 lg:w-28">
                     #{index + 1}
                   </div>
                   {!loading ? (
@@ -319,7 +320,7 @@ const Main = () => {
                       {/* image */}
                       <div className="flex gap-3">
                         <Link href={`/anime/${anime?.id}`}>
-                          <div className=" h-[60px] md:h-[80px] lg:h-[100px] min-w-[40px]">
+                          <div className=" h-[60px] md:h-[70px]  min-w-[40px]">
                             <Image
                               src={anime?.coverImage?.extraLarge}
                               alt="Anime Image"

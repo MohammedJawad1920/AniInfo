@@ -57,10 +57,10 @@ const AnimeList = ({ data, title, path, loading }) => {
                   ) : (
                     <div
                       key={index}
-                      className="anime-item flex flex-col min-w-[110px] md:min-w-[130px] lg:min-w-[170px] cursor-pointer group"
+                      className="anime-item flex flex-col min-w-[90px] md:min-w-[110px] lg:min-w-[150px] cursor-pointer group"
                     >
                       <Link href={`/anime/${anime?.id}`}>
-                        <div className="h-[150px] md:h-[180px] lg:h-[230px]">
+                        <div className="h-[130px] md:h-[160px] lg:h-[210px]">
                           <Image
                             src={anime?.coverImage?.extraLarge}
                             alt="Anime Image"

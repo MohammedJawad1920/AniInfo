@@ -84,7 +84,7 @@ const AnimeItemPage = async ({ params: { id } }) => {
               </div>
             </div>
           </div>
-          <div className="p-5   space-y-3 text-xs bg-prussianBlueMediumDark md:text-sm  md:pt-16 md:px-5 md:bg-prussianBlueAccent md:max-w-[300px]">
+          <div className="p-5   space-y-3 text-xs bg-prussianBlueMediumDark md:text-sm  md:pt-16 md:px-5 md:bg-prussianBlueAccent md:w-[400px]">
             <p>
               <span className="font-bold">Title:</span>{" "}
               {anime?.title?.english || anime?.title?.romaji}
