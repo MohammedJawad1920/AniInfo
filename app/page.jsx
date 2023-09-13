@@ -86,7 +86,7 @@ const Main = () => {
   return (
     <main className="space-y-5">
       {/* spot-light */}
-      <div className=" relative  text-white max-w-[1700px] bg-black bg-opacity-10  mx-auto">
+      <div className=" relative  text-white max-w-[2560px] bg-black bg-opacity-10  mx-auto">
         <Carousel
           showThumbs={false}
           infiniteLoop
@@ -104,8 +104,8 @@ const Main = () => {
                 } hidden top-0 bottom-0 rounded-full left-4 md:flex justify-center items-center   cursor-pointer z-20`}
                 onClick={clickHandler}
               >
-                <button className=" bg-gray-700 hover:bg-gray-900 p-3 rounded-full">
-                  <ChevronLeftIcon className="w-7 h-7 text-white" />
+                <button className="bg-gray-900 p-3 rounded-full">
+                  <ChevronLeftIcon className="w-5 lg:w-7 h-5 lg:h-7 text-white" />
                 </button>
               </div>
             );
@@ -118,8 +118,8 @@ const Main = () => {
                 } hidden top-0 bottom-0 rounded-full right-4 md:flex justify-center items-center  cursor-pointer z-20`}
                 onClick={clickHandler}
               >
-                <button className=" bg-gray-700 hover:bg-gray-900 p-3 rounded-full">
-                  <ChevronRightIcon className="w-7 h-7 text-white" />
+                <button className="bg-gray-900 p-3 rounded-full">
+                  <ChevronRightIcon className="w-5 lg:w-7 h-5 lg:h-7 text-white" />
                 </button>
               </div>
             );
@@ -138,7 +138,7 @@ const Main = () => {
                 {loading ? (
                   <div
                     key={index}
-                    className="w-full h-[260px] md:h-[240px] lg:h-[295px] xl:h-[384px] bg-prussianBlueAccent animate-pulse"
+                    className="w-full h-56 lg:h-72 bg-prussianBlueAccent animate-pulse"
                   ></div>
                 ) : (
                   <div
@@ -148,7 +148,7 @@ const Main = () => {
                     <Link href={`/anime/${anime?.id}`}>
                       {isBannerImage ? (
                         <div
-                          className="realtive w-full h-60 lg:h-80  xl:h-96 "
+                          className="realtive w-full h-56 lg:h-72  xl:h-80 xxl:h-[500px] "
                           style={{
                             backgroundImage: `url(${anime?.bannerImage})`,
                             backgroundRepeat: "no-repeat",
@@ -156,54 +156,56 @@ const Main = () => {
                             backgroundPosition: "center",
                           }}
                         >
-                          <div className="absolute inset-0 bg-gradient-to-r from-black  to-transparent opacity-90" />
-                          <div className="absolute h-full  flex flex-col justify-end w-[600px] text-start space-y-1 lg:space-y-2 px-20 pb-10 ">
-                            <p className="text-amber-400 ">
-                              #{index + 1} spotlight
-                            </p>
-                            <h2 className=" text-2xl lg:text-3xl line-clamp-2 font-bold ">
-                              {anime?.title?.english || anime?.title?.romaji}
-                            </h2>
-                            <div className="flex gap-1 md:gap-3 ">
-                              {anime?.format && (
-                                <div className="flex gap-2 items-center">
-                                  <div>
-                                    <PlayCircleIcon className="w-4 h-4" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black  to-transparent opacity-80" />
+                          <div className="container h-full flex items-center ">
+                            <div className=" max-h-fit z-10 bg-black bg-opacity-60  flex flex-col justify-center items-start ml-20 rounded-lg  p-5 w-[400px] xl:w-[600px] text-start space-y-1 lg:space-y-2 ">
+                              <p className="text-amber-400 ">
+                                #{index + 1} spotlight
+                              </p>
+                              <h2 className=" text-2xl lg:text-3xl line-clamp-1 font-bold ">
+                                {anime?.title?.english || anime?.title?.romaji}
+                              </h2>
+                              <div className="flex gap-1 md:gap-3 ">
+                                {anime?.format && (
+                                  <div className="flex gap-2 items-center">
+                                    <div>
+                                      <PlayCircleIcon className="w-4 h-4" />
+                                    </div>
+                                    <div>{anime?.format}</div>
                                   </div>
-                                  <div>{anime?.format}</div>
-                                </div>
-                              )}
-                              {anime?.duration && (
-                                <div className="flex gap-2 items-center">
-                                  <div>
-                                    <ClockIcon className="w-4 h-4" />
+                                )}
+                                {anime?.duration && (
+                                  <div className="flex gap-2 items-center">
+                                    <div>
+                                      <ClockIcon className="w-4 h-4" />
+                                    </div>
+                                    <div>{anime?.duration} m</div>
                                   </div>
-                                  <div>{anime?.duration} m</div>
-                                </div>
-                              )}
-                              {anime?.startDate?.year && (
-                                <div className="flex gap-2 items-center">
-                                  <div>
-                                    <CalendarIcon className="w-4 h-4" />
+                                )}
+                                {anime?.startDate?.year && (
+                                  <div className="flex gap-2 items-center">
+                                    <div>
+                                      <CalendarIcon className="w-4 h-4" />
+                                    </div>
+                                    <div>
+                                      {MONTHS[anime?.startDate.month - 1]}{" "}
+                                      {anime?.startDate?.day},{" "}
+                                      {anime?.startDate?.year}
+                                    </div>
                                   </div>
-                                  <div>
-                                    {MONTHS[anime?.startDate.month - 1]}{" "}
-                                    {anime?.startDate?.day},{" "}
-                                    {anime?.startDate?.year}
-                                  </div>
-                                </div>
-                              )}
+                                )}
+                              </div>
+                              <p>
+                                Episode {anime?.nextAiringEpisode?.episode}{" "}
+                                airing in:{" "}
+                                <span className="text-sky-500">
+                                  {formattedTime}
+                                </span>
+                              </p>
+                              <p className="hidden lg:line-clamp-2 xl:line-clamp-3 xxl:line-clamp-4  text-justify ">
+                                {parsedDescription}
+                              </p>
                             </div>
-                            <p>
-                              Episode {anime?.nextAiringEpisode?.episode} airing
-                              in:{" "}
-                              <span className="text-sky-500">
-                                {formattedTime}
-                              </span>
-                            </p>
-                            <p className="hidden lg:line-clamp-3 xl:line-clamp-5 text-justify">
-                              {parsedDescription}
-                            </p>
                           </div>
                         </div>
                       ) : (
