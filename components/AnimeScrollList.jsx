@@ -1,9 +1,10 @@
+"use client";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 
-const AnimeList = ({ data, title, path, loading }) => {
+const AnimeList = ({ data, title, path }) => {
   const containerRef = useRef(null);
 
   const scrollLeft = () => {
@@ -49,34 +50,27 @@ const AnimeList = ({ data, title, path, loading }) => {
             {data?.media?.map((anime, index) => {
               return (
                 <>
-                  {loading ? (
-                    <div className="flex flex-col h-full gap-3 min-w-[90px] md:min-w-[110px] lg:min-w-[150px] animate-pulse">
-                      <div className=" bg-prussianBlueAccent h-[150px] md:h-[180px] lg:h-[230px] rounded-lg"></div>
-                      <div className=" bg-prussianBlueAccent rounded w-[90%] h-4"></div>
-                    </div>
-                  ) : (
-                    <div
-                      key={index}
-                      className="anime-item flex flex-col min-w-[90px] md:min-w-[110px] lg:min-w-[150px] cursor-pointer group"
-                    >
-                      <Link href={`/anime/${anime?.id}`}>
-                        <div className="h-[130px] md:h-[160px] lg:h-[210px]">
-                          <Image
-                            src={anime?.coverImage?.extraLarge}
-                            alt="Anime Image"
-                            width={150}
-                            height={250}
-                            className="w-full h-full rounded-lg  overflow-hidden"
-                          />
-                        </div>
-                        <div>
-                          <h2 className=" line-clamp-2 text-xs lg:text-sm mt-1 group-hover:text-amber-400">
-                            {anime?.title?.english || anime?.title?.romaji}
-                          </h2>
-                        </div>
-                      </Link>
-                    </div>
-                  )}
+                  <div
+                    key={index}
+                    className="anime-item flex flex-col min-w-[90px] md:min-w-[110px] lg:min-w-[150px] cursor-pointer group"
+                  >
+                    <Link href={`/anime/${anime?.id}`}>
+                      <div className="h-[130px] md:h-[160px] lg:h-[210px]">
+                        <Image
+                          src={anime?.coverImage?.extraLarge}
+                          alt="Anime Image"
+                          width={150}
+                          height={250}
+                          className="w-full h-full rounded-lg  overflow-hidden"
+                        />
+                      </div>
+                      <div>
+                        <h2 className=" line-clamp-2 text-xs lg:text-sm mt-1 group-hover:text-amber-400">
+                          {anime?.title?.english || anime?.title?.romaji}
+                        </h2>
+                      </div>
+                    </Link>
+                  </div>
                 </>
               );
             })}

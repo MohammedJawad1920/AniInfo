@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import CardLoading from "./CardLoading";
 import { StarIcon } from "@heroicons/react/24/solid";
@@ -79,6 +80,7 @@ const AnimeList = ({ animes, loading, page, isTopRankingPage }) => {
                         width={150}
                         height={150}
                         className="w-full h-48 lg:h-56 rounded-lg  overflow-hidden"
+                        loading="lazy"
                       />
                     </div>
                     <div>
