@@ -50,7 +50,7 @@ const Main = async () => {
   return (
     <main className="space-y-5">
       {/* spot-light */}
-      <Carousel spotlight={spotlight || spotlightA} />
+      <Carousel spotlight={spotlight} />
 
       <div className="container mx-auto p-3 space-y-5">
         <AnimeList
