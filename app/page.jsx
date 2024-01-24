@@ -22,7 +22,14 @@ const fetchAnimes = async () => {
     };
 
     const requests = [
-      axios.post(url, { query: SPOTLIGHT_ANIMES_QUERY }),
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // You may need to include additional headers as needed
+        },
+        body: JSON.stringify({ query: SPOTLIGHT_ANIMES_QUERY }),
+      }),
       axios.post(url, { query: POPULAR_ANIMES_QUERY, variables }),
       axios.post(url, { query: TRENDING_ANIMES_QUERY, variables }),
       axios.post(url, { query: TOP_RANKING_ANIMES_QUERY, variables }),
